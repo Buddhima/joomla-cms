@@ -66,12 +66,9 @@ class ModulesControllerDisplay extends JControllerBase
 		$paths->insert(JPATH_COMPONENT . '/view/tmpl', 'normal');
 		
 
-		//$viewClass  = 'ModulesView' . ucfirst($viewFormat);
-		//$modelClass = 'ModulesModel' . ucfirst($viewName);
+		$viewClass  = 'ModulesView' . ucfirst($viewFormat);
+		$modelClass = 'ModulesModel' . ucfirst($viewName);
 		
-		
-		$viewClass  = 'ServicesView' . ucfirst($viewFormat);
-		$modelClass = 'ServicesModel' . ucfirst($viewName);
 
 		if (class_exists($viewClass))
 		{
@@ -90,11 +87,19 @@ class ModulesControllerDisplay extends JControllerBase
 				}
 
 			}
-// 			print_r($model);print_r('ererer');
-			$view = new $viewClass($model, $paths);
+// 			print_r(JPATH_ADMINISTRATOR); throw new ert();
+$model = new ModulesModelModule3();
+
+// Need to set state of model
+// $state = $model->loadState();
+// $state->set('item.module', $serviceData['module']); // need to add value
+
+
+
+			$view = new $viewClass($model, $paths);// model hard coded here
 
 			$view->setLayout($layoutName);
-
+// 			print_r($layoutName); throw new ert();
 			// Push document object into the view.
 			$view->document = $document;
 
@@ -104,10 +109,10 @@ class ModulesControllerDisplay extends JControllerBase
 			{
 				$form->bind($serviceData);
 			}
-
+// 			print_r($form);throw new ert();// error
 			// Set form and data to the view			
 			$view->form = &$form;
-
+			
 			// Render view.
 			echo $view->render();
 		}
