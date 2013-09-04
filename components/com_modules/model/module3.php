@@ -91,7 +91,6 @@ class ModulesModelModule3 extends JModelCmsform
 			return false;
 		}
 		
-// 		$form->setFieldAttribute('position', 'client',  'administrator');
 		$form->setFieldAttribute('position', 'client',  'site');
 
 		return $form;
@@ -115,14 +114,11 @@ class ModulesModelModule3 extends JModelCmsform
 		jimport('joomla.filesystem.path');
 
 		$lang     = JFactory::getLanguage();
-// 		$clientId = $this->getState('item.client_id');
 // 		$module   = $this->getState('item.module');
 
-// 		$module = 'mod_menu';// sample hard-coded module
 		$module = $this->currentModel;
 		$adminPath = JPATH_ADMINISTRATOR;
 		
-// 		$client   = JApplicationHelper::getClientInfo($clientId);
 		$formFile = JPath::clean($adminPath . '/modules/' . $module . '/' . $module . '.xml');
 
 		// Load the core and/or local language file(s).
@@ -143,17 +139,6 @@ class ModulesModelModule3 extends JModelCmsform
 			if (!$xml = simplexml_load_file($formFile))
 			{
 				throw new Exception(JText::_('JERROR_LOADFILE_FAILED'));
-			}
-
-			// Get the help data from the XML file if present.
-			$help = $xml->xpath('/extension/help');
-			if (!empty($help))
-			{
-				$helpKey = trim((string) $help[0]['key']);
-				$helpURL = trim((string) $help[0]['url']);
-
-				$this->helpKey = $helpKey ? $helpKey : $this->helpKey;
-				$this->helpURL = $helpURL ? $helpURL : $this->helpURL;
 			}
 
 		}

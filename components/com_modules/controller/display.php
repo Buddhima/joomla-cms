@@ -49,7 +49,7 @@ class ModulesControllerDisplay extends JControllerBase
 
 		// Get the parameters of the module with Id =1
 		$document->setType('json');
-		$app->input->set('id', '1'); // *** IMPORTANT: somehow you need to set 'id' here ***
+		$app->input->set('id', '16'); // *** IMPORTANT: somehow you need to set 'id' here ***
 
 		// Execute back-end controller
 		$serviceData = json_decode($displayClass->display(), true);
