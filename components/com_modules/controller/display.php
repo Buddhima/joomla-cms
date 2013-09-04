@@ -22,7 +22,7 @@ class ModulesControllerDisplay extends JControllerBase
 	 * Method to display global configuration.
 	 *
 	 * @return  bool	True on success, false on failure.
-	 * 
+	 *
 	 * @since   3.2
 	 */
 	public function execute()
@@ -49,12 +49,11 @@ class ModulesControllerDisplay extends JControllerBase
 
 		// Get the parameters of the module with Id =1
 		$document->setType('json');
-		$app->input->set('id', '1');
+		$app->input->set('id', '1'); // *** IMPORTANT: somehow you need to set 'id' here ***
 
 		// Execute back-end controller
-// 		$displayClass->display();
 		$serviceData = json_decode($displayClass->display(), true);
-		
+
 
 		// Reset params back after requesting from service
 		$document->setType('html');
@@ -64,21 +63,21 @@ class ModulesControllerDisplay extends JControllerBase
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
 		$paths->insert(JPATH_COMPONENT . '/view/tmpl', 'normal');
-		
+
 
 		$viewClass  = 'ModulesView' . ucfirst($viewFormat);
 		$modelClass = 'ModulesModel' . ucfirst($viewName);
-		
+
 
 		if (class_exists($viewClass))
 		{
 
 			if ($viewName != 'close')
 			{
-				$model = new $modelClass;
+				$model = new $modelClass; // Will be overriden later - temp. solution
 
 				// Access check.
- 				if (!JFactory::getUser()->authorise('core.admin', $model->getState('component.option')))
+				if (!JFactory::getUser()->authorise('core.admin', $model->getState('component.option')))
 				{
 					$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 
@@ -87,19 +86,19 @@ class ModulesControllerDisplay extends JControllerBase
 				}
 
 			}
-// 			print_r(JPATH_ADMINISTRATOR); throw new ert();
-$model = new ModulesModelModule3();
 
-// Need to set state of model
-// $state = $model->loadState();
-// $state->set('item.module', $serviceData['module']); // need to add value
+			$model = new ModulesModelModule3();// *** Model hard coded here
 
+			// Need to set state of model
+			// $state = $model->loadState();
+			// $state->set('item.module', $serviceData['module']); // need to add value
+			// $model->setState($state);
+			$model->currentModel = $serviceData['module']; // Alternative solution used here
 
-
-			$view = new $viewClass($model, $paths);// model hard coded here
+			$view = new $viewClass($model, $paths);
 
 			$view->setLayout($layoutName);
-// 			print_r($layoutName); throw new ert();
+
 			// Push document object into the view.
 			$view->document = $document;
 
@@ -109,10 +108,10 @@ $model = new ModulesModelModule3();
 			{
 				$form->bind($serviceData);
 			}
-// 			print_r($form);throw new ert();// error
-			// Set form and data to the view			
+
+			// Set form and data to the view
 			$view->form = &$form;
-			
+				
 			// Render view.
 			echo $view->render();
 		}

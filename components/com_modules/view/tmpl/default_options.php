@@ -39,7 +39,7 @@ defined('_JEXEC') or die;
 				
 				foreach ($this->form->getFieldset($name) as $field) : 
 				
-				print_r($field->input);
+//				print_r($field->input);
 
 // 				if($field->label=="COM_MODULES_FIELD_MODULE_STYLE_LABEL"){ continue;  print_r('REWRWRWER');}
 				
