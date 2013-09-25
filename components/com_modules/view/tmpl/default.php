@@ -9,11 +9,13 @@
 
 defined('_JEXEC') or die;
 
-// JHtml::_('behavior.tooltip');
+JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
+JHtml::_('behavior.framework', true);
 // JHtml::_('behavior.combobox');
 JHtml::_('formbehavior.chosen', 'select');
+
 
 
 // Get Params Fieldsets
@@ -25,7 +27,7 @@ $this->fieldsets = $this->form->getFieldsets('params');
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
 	{
-		//if (task == 'modules.cancel' || document.formvalidator.isValid(document.id('modules-form'))) // Disabled *Temporary* to continue regrdless of this
+		if (task == 'modules.cancel' || document.formvalidator.isValid(document.id('modules-form')))
 		{
 			Joomla.submitform(task, document.getElementById('modules-form'));
 		}

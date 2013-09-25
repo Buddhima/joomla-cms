@@ -58,7 +58,7 @@ class ModulesControllerSave extends JControllerBase
 		
 // 		print_r($this->input->get('id'));
 		
-throw new sdsf();
+
 		// Execute back-end controller
 		$return = $controllerClass->save();
 
@@ -73,7 +73,7 @@ throw new sdsf();
 // 			$app->setUserState('com_modules.config.global.data', $data);
 
 			// Save failed, go back to the screen and display a notice.
-			$message = JText::sprintf('JERROR_SAVE_FAILED', $model->getError());
+			$message = JText::sprintf('JERROR_SAVE_FAILED');
 
 			$app->redirect(JRoute::_('index.php?option=com_modules&controller=display', false), $message, 'error');
 
