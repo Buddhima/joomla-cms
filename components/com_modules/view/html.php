@@ -23,6 +23,8 @@ class ModulesViewHtml extends JViewCms
 	public $form;
 
 	public $state;
+	
+	public $currentModelId;
 
 	/**
 	 * Display the view

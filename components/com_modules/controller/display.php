@@ -111,7 +111,8 @@ class ModulesControllerDisplay extends JControllerBase
 
 			// Set form and data to the view
 			$view->form = &$form;
-				
+			$view->currentModelId = $serviceData['id']; // Alternative solution used here
+
 			// Render view.
 			echo $view->render();
 		}

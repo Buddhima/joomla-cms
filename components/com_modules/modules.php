@@ -37,15 +37,13 @@ elseif ($controller == 'apply')
 	$activity = 'save';
 }
 else
-{
+{ throw new dsfsd();
 	$activity = $controller;
 }
 
-// Create the controller
-//if ($array[0] == 'config')
 
-	// For Config
-	$classname  = 'ModulesController' . ucfirst($activity);
+
+$classname  = 'ModulesController' . ucfirst($activity);
 	
 	
 if(!class_exists($classname))
