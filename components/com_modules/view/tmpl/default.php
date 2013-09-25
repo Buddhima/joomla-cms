@@ -9,38 +9,33 @@
 
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.tooltip');
+// JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.combobox');
+JHtml::_('behavior.keepalive');
+// JHtml::_('behavior.combobox');
 JHtml::_('formbehavior.chosen', 'select');
 
-$hasContent = empty($this->item->module) || $this->item->module == 'custom' || $this->item->module == 'mod_custom';
 
 // Get Params Fieldsets
 $this->fieldsets = $this->form->getFieldsets('params');
 
-
-$script = "Joomla.submitbutton = function(task)
-{
-		if (task == 'module.cancel' || document.formvalidator.isValid(document.id('module-form'))) {";
-if ($hasContent)
-{
-	$script .= $this->form->getField('content')->save();
-}
-$script .= "	Joomla.submitform(task, document.getElementById('module-form'));
-		if (self != top)
-		{
-		window.top.setTimeout('window.parent.SqueezeBox.close()', 1000);
-}
-}
-}";
-
-JFactory::getDocument()->addScriptDeclaration($script);
 ?>
+
+
+<script type="text/javascript">
+	Joomla.submitbutton = function(task)
+	{
+		//if (task == 'modules.cancel' || document.formvalidator.isValid(document.id('modules-form'))) // Disabled *Temporary* to continue regrdless of this
+		{
+			Joomla.submitform(task, document.getElementById('modules-form'));
+		}
+	}
+</script>
+
 <form
-	action="<?php echo JRoute::_('index.php?option=com_modules&controller=save&id='.$this->currentModelId); ?>"
-	method="post" name="adminForm" id="module-form"
-	class="form-validate form-horizontal">
+	action="<?php echo JRoute::_('index.php?option=com_modules&id='.$this->currentModelId); ?>"
+	method="post" name="adminForm" id="modules-form"
+	class="form-validate">
 
 	<div class="row-fluid">
 
@@ -50,14 +45,14 @@ JFactory::getDocument()->addScriptDeclaration($script);
 			<div class="btn-toolbar">
 				<div class="btn-group">
 					<button type="button" class="btn btn-primary"
-						onclick="Joomla.submitbutton('')">
+						onclick="Joomla.submitbutton('apply')">
 						<i class="icon-ok"></i>
 						<?php echo JText::_('JSAVE') ?>
 					</button>
 				</div>
 				<div class="btn-group">
 					<button type="button" class="btn"
-						onclick="Joomla.submitbutton('')">
+						onclick="Joomla.submitbutton('cancel')">
 						<i class="icon-cancel"></i>
 						<?php echo JText::_('JCANCEL') ?>
 					</button>
@@ -85,14 +80,14 @@ JFactory::getDocument()->addScriptDeclaration($script);
 								<?php echo $this->form->getInput('showtitle'); ?>
 							</div>
 						</div>
-						<div class="control-group">
+						<!-- div class="control-group">
 							<div class="control-label">
 								<?php //echo $this->form->getLabel('position'); ?>
 							</div>
 							<div class="controls">
 								<?php //echo $this->loadTemplate('positions'); ?>
 							</div>
-						</div>
+						</div -->
 	
 						<hr />
 	

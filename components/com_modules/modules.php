@@ -24,6 +24,10 @@ $app = JFactory::getApplication();
 
 $controller = $app->input->get('controller');
 
+if(empty($controller))
+{
+	$controller = $app->input->get('task');
+}
 
 
 // Get the controller name
@@ -37,15 +41,14 @@ elseif ($controller == 'apply')
 	$activity = 'save';
 }
 else
-{ throw new dsfsd();
+{
 	$activity = $controller;
 }
 
 
-
 $classname  = 'ModulesController' . ucfirst($activity);
-	
-	
+
+
 if(!class_exists($classname))
 {
 	$app->enqueueMessage(JText::_('COM_MODULES_ERROR_CONTROLLER_NOT_FOUND'), 'error');

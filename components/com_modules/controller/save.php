@@ -41,7 +41,7 @@ class ModulesControllerSave extends JControllerBase
 		JClientHelper::setCredentialsFromRequest('ftp');
 
 		$app   = JFactory::getApplication();
-		$data  = $this->input->post->get('jform', array(), 'array');
+// 		$data  = $this->input->post->get('jform', array(), 'array');
 
 		// Access back-end com_modules to be done
 		JLoader::register('ModulesControllerModule', JPATH_ADMINISTRATOR . '/components/com_modules/controllers/module.php');
@@ -54,7 +54,10 @@ class ModulesControllerSave extends JControllerBase
 
 		// Set back-end required params
 		$document->setType('json');
-		$this->input->set('id',$app->input->getInt('id') );//** Set Id of module **//
+// 		$this->input->set('id',$app->input->getInt('id') );//** Set Id of module **//
+		
+// 		print_r($this->input->get('id'));
+		
 throw new sdsf();
 		// Execute back-end controller
 		$return = $controllerClass->save();
@@ -67,7 +70,7 @@ throw new sdsf();
 		if ($return === false)
 		{
 			// Save the data in the session.
-			$app->setUserState('com_modules.config.global.data', $data);
+// 			$app->setUserState('com_modules.config.global.data', $data);
 
 			// Save failed, go back to the screen and display a notice.
 			$message = JText::sprintf('JERROR_SAVE_FAILED', $model->getError());
