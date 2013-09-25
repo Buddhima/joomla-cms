@@ -16,11 +16,6 @@ JHtml::_('behavior.framework', true);
 // JHtml::_('behavior.combobox');
 JHtml::_('formbehavior.chosen', 'select');
 
-
-
-// Get Params Fieldsets
-$this->fieldsets = $this->form->getFieldsets('params');
-
 ?>
 
 
@@ -62,6 +57,8 @@ $this->fieldsets = $this->form->getFieldsets('params');
 			</div>
 
 			<hr class="hr-condensed" />
+			
+			<legend><?php echo JText::_('COM_MODULES_SETTINGS_TITLE'); ?></legend>
 
 			<div class="row-fluid">
 				<div class="span6">
