@@ -41,12 +41,14 @@ class ModulesControllerSave extends JControllerBase
 		JClientHelper::setCredentialsFromRequest('ftp');
 
 		$app   = JFactory::getApplication();
-// 		$data  = $this->input->post->get('jform', array(), 'array');
+
+		// Get sumitted module id
+		$moduleId = $this->input->get('id');
 
 		// Access back-end com_modules to be done
 		JLoader::register('ModulesControllerModule', JPATH_ADMINISTRATOR . '/components/com_modules/controllers/module.php');
 		JLoader::register('ModulesModelModule', JPATH_ADMINISTRATOR . '/components/com_modules/models/module.php');
-// 		JLoader::register('ModulesTableModule', JPATH_ADMINISTRATOR . '/components/com_templates/tables/style.php');
+
 		$controllerClass = new ModulesControllerModule;
 
 		// Get a document object
@@ -54,10 +56,6 @@ class ModulesControllerSave extends JControllerBase
 
 		// Set back-end required params
 		$document->setType('json');
-// 		$this->input->set('id',$app->input->getInt('id') );//** Set Id of module **//
-		
-// 		print_r($this->input->get('id'));
-		
 
 		// Execute back-end controller
 		$return = $controllerClass->save();
@@ -69,13 +67,10 @@ class ModulesControllerSave extends JControllerBase
 		// Check the return value.
 		if ($return === false)
 		{
-			// Save the data in the session.
-// 			$app->setUserState('com_modules.config.global.data', $data);
-
 			// Save failed, go back to the screen and display a notice.
 			$message = JText::sprintf('JERROR_SAVE_FAILED');
 
-			$app->redirect(JRoute::_('index.php?option=com_modules&controller=display', false), $message, 'error');
+			$app->redirect(JRoute::_('index.php?option=com_modules&controller=display&id='.$moduleId, false), $message, 'error');
 
 			return false;
 		}
@@ -84,7 +79,7 @@ class ModulesControllerSave extends JControllerBase
 		$message = JText::_('COM_MODULES_SAVE_SUCCESS');
 
 		// Redirect back to com_services display
-		$app->redirect(JRoute::_('index.php?option=com_modules&controller=display', false), $message);
+		$app->redirect(JRoute::_('index.php?option=com_modules&controller=display&id='.$moduleId, false), $message);
 
 		return true;
 	}

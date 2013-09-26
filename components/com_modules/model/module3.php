@@ -50,8 +50,6 @@ class ModulesModelModule3 extends JModelCmsform
 	protected function populateState()
 	{
 
-		
-		
 		$app = JFactory::getApplication('administrator');
 		
 		// Load the User state.
@@ -90,7 +88,7 @@ class ModulesModelModule3 extends JModelCmsform
 			
 			return false;
 		}
-		
+
 		$form->setFieldAttribute('position', 'client',  'site');
 
 		return $form;
@@ -117,15 +115,15 @@ class ModulesModelModule3 extends JModelCmsform
 // 		$module   = $this->getState('item.module');
 
 		$module = $this->currentModel;
-		$adminPath = JPATH_ADMINISTRATOR;
+		$basePath = JPATH_BASE;
 		
-		$formFile = JPath::clean($adminPath . '/modules/' . $module . '/' . $module . '.xml');
+		$formFile = JPath::clean($basePath . '/modules/' . $module . '/' . $module . '.xml');
 
 		// Load the core and/or local language file(s).
-		$lang->load($module, $adminPath, null, false, false)
-			||	$lang->load($module, $adminPath . '/modules/' . $module, null, false, false)
-			||	$lang->load($module, $adminPath, $lang->getDefault(), false, false)
-			||	$lang->load($module, $adminPath . '/modules/' . $module, $lang->getDefault(), false, false);
+		$lang->load($module, $basePath, null, false, false)
+			||	$lang->load($module, $basePath . '/modules/' . $module, null, false, false)
+			||	$lang->load($module, $basePath, $lang->getDefault(), false, false)
+			||	$lang->load($module, $basePath . '/modules/' . $module, $lang->getDefault(), false, false);
 
 		if (file_exists($formFile))
 		{

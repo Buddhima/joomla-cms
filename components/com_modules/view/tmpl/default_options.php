@@ -25,7 +25,7 @@ defined('_JEXEC') or die;
 ?>
 <?php 
 
-	echo('<br/><br/>');
+
 	
 	foreach ($this->form->getFieldset($name) as $field) :
 
@@ -39,7 +39,10 @@ defined('_JEXEC') or die;
 			<?php echo $field->input; ?>
 		</div>
 	</div>
-<?php endforeach;
+<?php endforeach; ?>
 
+<hr class="hr-condensed" />
+
+<?php
 endforeach;
 

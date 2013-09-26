@@ -43,6 +43,12 @@ function modChrome_well($module, &$params, &$attribs)
 		{
 			echo "<h3 class=\"page-header\">" . $module->title . "</h3>";
 		}
+		if(JFactory::getUser()->authorise('core.admin'))
+		{
+			echo "<button type=\"button\" class=\"btn btn-small\" onclick=\"location.href='" . JUri::base() . "index.php?option=com_modules&controller=display&id=" . $module->id . "'\"> <i class=\"icon-edit\"></i>";
+			echo JText::_('JACTION_EDIT'); 
+			echo "</button>";
+		}
 		echo $module->content;
 		echo "</div>";
 	}

@@ -49,11 +49,10 @@ class ModulesControllerDisplay extends JControllerBase
 
 		// Get the parameters of the module with Id =1
 		$document->setType('json');
-		$app->input->set('id', '16'); // *** IMPORTANT: somehow you need to set 'id' here ***
+// 		$app->input->set('id', '16'); // *** IMPORTANT: somehow you need to set 'id' here ***
 
 		// Execute back-end controller
 		$serviceData = json_decode($displayClass->display(), true);
-
 
 		// Reset params back after requesting from service
 		$document->setType('html');
@@ -90,9 +89,6 @@ class ModulesControllerDisplay extends JControllerBase
 			$model = new ModulesModelModule3();// *** Model hard coded here
 
 			// Need to set state of model
-			// $state = $model->loadState();
-			// $state->set('item.module', $serviceData['module']); // need to add value
-			// $model->setState($state);
 			$model->currentModel = $serviceData['module']; // Alternative solution used here
 
 			$view = new $viewClass($model, $paths);
