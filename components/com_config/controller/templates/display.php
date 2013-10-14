@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage  com_config
  * @since       3.2
 */
-class ConfigControllerTemplatesDisplay extends ConfigControllerDisplayservice
+class ConfigControllerTemplatesDisplay extends ConfigControllerDisplayjson
 {
 	/**
 	 * Method to display global configuration.

@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_config
  * @since       3.2
  */
-class ConfigControllerDisplayservice extends ConfigControllerDisplay
+class ConfigControllerDisplayjson extends ConfigControllerDisplay
 {
 	public $backendControllerView;//in com_config 2 views: application & component
 	public $backendComponent;// for accessing differnt component than front-end - but new MVC

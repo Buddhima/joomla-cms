@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_config
  * @since       3.2
 */
-class ConfigControllerConfigDisplay extends ConfigControllerDisplayservice
+class ConfigControllerConfigDisplay extends ConfigControllerDisplayjson
 {
 	/**
 	 * Method to display global configuration.
