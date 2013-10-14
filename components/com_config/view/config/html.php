@@ -22,7 +22,6 @@ class ConfigViewConfigHtml extends ConfigViewCmsHtml
 
 	public $form;
 
-	public $data;
 
 	/**
 	 * Method to display the view.

@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
  * @subpackage  com_config
  * @since       3.2
 */
-class ConfigControllerTemplatesDisplay extends ConfigControllerDisplay
+class ConfigControllerTemplatesDisplay extends ConfigControllerDisplayservice
 {
 	/**
 	 * Method to display global configuration.
@@ -28,81 +28,18 @@ class ConfigControllerTemplatesDisplay extends ConfigControllerDisplay
 	public function execute()
 	{
 
-		// Get the application
-		$app = $this->getApplication();
-
-		// Get the document object.
-		$document     = JFactory::getDocument();
-
-		$viewName     = $this->input->getWord('view', 'templates');
-		$viewFormat   = $document->getType();
-		$layoutName   = $this->input->getWord('layout', 'default');
-
 		// Access back-end com_config
 		JLoader::register('TemplatesController', JPATH_ADMINISTRATOR . '/components/com_templates/controller.php');
 		JLoader::register('TemplatesViewStyle', JPATH_ADMINISTRATOR . '/components/com_templates/views/style/view.json.php');
 		JLoader::register('TemplatesModelStyle', JPATH_ADMINISTRATOR . '/components/com_templates/models/style.php');
 
-		$displayClass = new TemplatesController;
+		$this->input->set('id', $this->app->getTemplate('template')->id);
 
-		// Set back-end required params
-		$document->setType('json');
-		$this->input->set('id', $app->getTemplate('template')->id);
+		$this->backendComponent = 'templates'; // Actually no need since bypassing
+		$this->backendController = 'TemplatesController';
 
-		// Execute back-end controller
-		$serviceData = json_decode($displayClass->display(), true);
+		return parent::execute();
 
-		// Reset params back after requesting from service
-		$document->setType('html');
-		$this->input->set('view', $viewName);
-
-		// Register the layout paths for the view
-		$paths = new SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT . '/view/' . $viewName . '/tmpl', 'normal');
-
-		$viewClass  = 'ConfigView' . ucfirst($viewName) . ucfirst($viewFormat);
-		$modelClass = 'ConfigModel' . ucfirst($viewName);
-
-		if (class_exists($viewClass))
-		{
-
-			if ($viewName != 'close')
-			{
-				$model = new $modelClass;
-
-				// Access check.
-				if (!JFactory::getUser()->authorise('core.admin', $model->getState('component.option')))
-				{
-					$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-
-					return;
-				}
-
-			}
-
-			$view = new $viewClass($model, $paths);
-
-			$view->setLayout($layoutName);
-
-			// Push document object into the view.
-			$view->document = $document;
-
-			// Load form and bind data
-			$form = $model->getForm();
-
-			if ($form)
-			{
-				$form->bind($serviceData);
-			}
-
-			// Set form and data to the view
-			$view->form = &$form;
-
-			// Render view.
-			echo $view->render();
-		}
-
-		return true;
 	}
 
 }
