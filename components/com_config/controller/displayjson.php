@@ -27,7 +27,7 @@ class ConfigControllerDisplayjson extends ConfigControllerDisplay
 	public $backendController; // Just because of legacy diplay controllers
 
 	/**
-	 * Method to displayServices.
+	 * Method to displayJson.
 	 *
 	 * @return  boolean	True on success, false on failure.
 	 *
@@ -86,9 +86,13 @@ class ConfigControllerDisplayjson extends ConfigControllerDisplay
 			$serviceData = json_decode($backendDisplayClass->execute(), true);
 		}
 
+		// Reset params back after requesting from service
+		$document->setType('html');
+// 		$app->input->set('view', $viewName);
+		
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
-		$paths->insert(JPATH_COMPONENT . '/view/' . $viewName . '/tmpl', 'normal');
+		$paths->insert(JPATH_COMPONENT . '/view/' . $viewName . '/tmpl', 1);
 
 		$viewClass  = $this->prefix . 'View' . ucfirst($viewName) . 'Html';
 		$modelClass = $this->prefix . 'Model' . ucfirst($viewName);
@@ -98,20 +102,11 @@ class ConfigControllerDisplayjson extends ConfigControllerDisplay
 
 			$model = new $modelClass;
 
-			// Access check.
-			if (!JFactory::getUser()->authorise('core.admin', $model->getState('component.option')))
-			{
-				$app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
-
-				return;
-			}
-
 			$view = new $viewClass($model, $paths);
 
 			$view->setLayout($layoutName);
 
 			// Push document object into the view.
-			$document->setType('html');	// Reset params back after requesting from service
 			$view->document = $document;
 
 			// Load form and bind data

@@ -38,7 +38,17 @@ class ConfigControllerTemplatesDisplay extends ConfigControllerDisplayjson
 		$this->backendComponent = 'templates'; // Actually no need since bypassing
 		$this->backendController = 'TemplatesController';
 
-		return parent::execute();
+		// Access check.
+		if (!JFactory::getUser()->authorise('core.admin', 'com_config'))
+		{
+			$this->app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+
+			return;
+		}
+		else
+		{
+			return parent::execute();
+		}
 
 	}
 

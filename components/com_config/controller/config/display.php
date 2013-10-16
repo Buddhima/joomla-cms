@@ -15,7 +15,7 @@ defined('_JEXEC') or die;
  * @package     Joomla.Site
  * @subpackage  com_config
  * @since       3.2
-*/
+ */
 class ConfigControllerConfigDisplay extends ConfigControllerDisplayjson
 {
 	/**
@@ -28,10 +28,20 @@ class ConfigControllerConfigDisplay extends ConfigControllerDisplayjson
 	public function execute()
 	{
 
-// 		$this->backendComponent = 'config'; // No need since backend with same component name
-		$this->backendControllerView = 'application';
+		// 		$this->backendComponent = 'config'; // No need since backend with same component name
+		$this->backendControllerView = 'application';// view name of the component (sub-section)
 
-		return parent::execute();
+		// Access check.
+		if (!JFactory::getUser()->authorise('core.admin', 'com_config'))
+		{
+			$this->app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+
+			return;
+		}
+		else
+		{
+			return parent::execute();
+		}
 
 	}
 
