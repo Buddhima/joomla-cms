@@ -39,7 +39,7 @@ class ConfigControllerTemplatesDisplay extends ConfigControllerDisplayjson
 		$this->backendController = 'TemplatesController';
 
 		// Access check.
-		if (!JFactory::getUser()->authorise('core.admin', 'com_config'))
+		if (!JFactory::getUser()->authorise('core.manage', 'com_config') || !JFactory::getUser()->authorise('core.edit', 'com_config'))
 		{
 			$this->app->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
 
